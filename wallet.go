@@ -206,3 +206,24 @@ func (c *WalletClient) StopWallet() (bool, error) {
 // 	}
 // 	return true, nil
 // }
+
+func (c *WalletClient) MakeUri(address string, amount uint64, payment_id, recipient_name, tx_description string) (Uri, error) {
+	req := struct {
+		Address       string `json:"address"`
+		Amount        uint64 `json:"amount,omitempty"`
+		PaymentId     string `json:"payment_id,omitempty"`
+		RecipientName string `json:"recipient_name,omitempty"`
+		TxDescription string `json:"tx_description,omitempty"`
+	}{
+		Address:       address,
+		Amount:        amount,
+		PaymentId:     payment_id,
+		RecipientName: recipient_name,
+		TxDescription: tx_description,
+	}
+	var rep Uri
+	if err := c.Wallet("make_integrated_address", req, &rep); err != nil {
+		return rep, err
+	}
+	return rep, nil
+}

@@ -103,3 +103,7 @@ type Payment struct {
 	TxHash      string `json:"tx_hash"`
 	UnlockTime  uint64 `json:"unlock_time"`
 }
+
+type Uri struct {
+	Uri         string `json:"uri"`
+}
