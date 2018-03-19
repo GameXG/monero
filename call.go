@@ -52,15 +52,7 @@ func NewCallClient(endpoint, username, password string) *CallClient {
 }
 
 func (c *CallClient) Daemon(method string, req, rep interface{}) error {
-	client := &http.Client{}
-	reqest, _ := http.NewRequest("POST", c.endpoint, EncodeClientRequest(method, req))
-	reqest.Header.Set("Content-Type", "application/json")
-	resp, err := client.Do(reqest)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-	return DecodeClientResponse(resp.Body, rep)
+	return c.Wallet(method, rep, rep)
 }
 
 func (c *CallClient) Wallet(method string, req, rep interface{}) error {
