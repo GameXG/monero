@@ -222,7 +222,7 @@ func (c *WalletClient) MakeUri(address string, amount uint64, payment_id, recipi
 		TxDescription: tx_description,
 	}
 	var rep Uri
-	if err := c.Wallet("make_integrated_address", req, &rep); err != nil {
+	if err := c.Wallet("make_uri", req, &rep); err != nil {
 		return rep, err
 	}
 	return rep, nil
